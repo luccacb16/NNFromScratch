@@ -5,7 +5,9 @@
 
 ## Descrição
 Uma biblioteca de redes neurais simples para classificação em 3 linguagens diferentes: C, C++ e Python
+
 Em C e C++ todas as operações matriciais e processamento de dados foram implementados do 0
+
 Em Python foi utilizada apenas a biblioteca NumPy. As funções, parâmetros e retornos foram implementados para serem similares à biblioteca sklearn (scikit-learn)
 
 ## Setup
