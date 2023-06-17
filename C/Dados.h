@@ -24,15 +24,13 @@ double chartodouble(char x) {
 }
 
 Data getDados(FILE *fp, Data Input) {
-	//fseek(fp, ftell(fp), SEEK_SET);
-	
-	fscanf(fp, "%d", &Input->label); // Label
-
 	for (int i = 0; i < Input->Dados->m; i++) {
 		for (int j = 0; j < Input->Dados->n; j++) {
 			fscanf(fp, "%lf", &Input->Dados->matriz[i][j]); // Coloca os dados na matriz
 		}
 	}
+
+	fscanf(fp, "%d", &Input->label); // Label
 	
 	return Input;
 }
