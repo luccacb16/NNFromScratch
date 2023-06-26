@@ -167,4 +167,4 @@ predictions = model.predict(x_test)
 accuracy = model.score(predictions, y_test)
 ```
 
-Para um teste rápido, basta executar o arquivo 'main.py' da pasta 'scripts'
+Para um teste rápido, basta mover os arquivos da pasta 'scripts' junto dos outros arquivos e executar o arquivo 'main.py'
