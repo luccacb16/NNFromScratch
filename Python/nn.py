@@ -80,6 +80,10 @@ class NN:
         self.Bh = self.Bh - (dBh * lr)
     
     def train(self, X: np.ndarray, Y: np.ndarray, lr: float = 0.001):
+        '''
+        Treina a rede neural com os dados de entrada X e saída Y
+        '''
+        
         n = X.shape[0]
         
         self.numinput = X[0].shape[0]
@@ -89,7 +93,7 @@ class NN:
         self.Wi, self.Bi, self.Wh, self.Bh = self.init() 
         
         # Roda 'epochs' treinamentos para 'n' dados
-        for j in range(self.epochs):
+        for _ in range(self.epochs):
   
             # Embaralha a cada epoch
             p = np.random.permutation(X.shape[0])
@@ -105,6 +109,10 @@ class NN:
         return self
         
     def predict(self, X: np.ndarray) -> list:
+        '''
+        Retorna uma lista com as predições para cada exemplo de X
+        '''
+        
         n = X.shape[0]
         
         predictions = []
@@ -115,14 +123,31 @@ class NN:
             
         return predictions
     
-    def score(self, predictions: list, Y: np.ndarray) -> float:
+    def accuracy(self, predictions: list, Y: np.ndarray) -> float:
+        '''
+        Retorna a acurácia do modelo (número de acertos / número de exemplos)
+        '''
+        
         if len(predictions) != len(Y):
             raise ValueError('predictions and Y must have the same length')
         
-        accuracy = 0
-        for x, y in zip(predictions, Y):
-            if x == y: accuracy += 1
+        return np.sum(predictions == Y) / len(Y)
+    
+    def precision(self, predictions: list, Y: np.ndarray) -> float:
+        '''
+        Retorna a precisão do modelo (número de verdadeiros positivos / número de positivos)
+        '''
+        if len(predictions) != len(Y):
+            raise ValueError('predictions and Y must have the same length')
         
-        return accuracy / len(predictions)
-                
+        classes = len(np.unique(Y))
+        precisions = []
+        
+        for i in range(classes):
+            TP = np.sum((predictions == i) & (Y == i))
+            FP = np.sum((predictions == i) & (Y != i))
+            
+            precisions.append(TP / (TP + FP))
+        
+        return np.mean(precisions)
         
