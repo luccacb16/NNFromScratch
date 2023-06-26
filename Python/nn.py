@@ -144,8 +144,8 @@ class NN:
         precisions = []
         
         for i in range(classes):
-            TP = np.sum((predictions == i) & (Y == i))
-            FP = np.sum((predictions == i) & (Y != i))
+            TP = np.sum((predictions == np.full_like(predictions, i)) & (Y == i))
+            FP = np.sum((predictions == np.full_like(predictions, i)) & (Y != i))
             
             precisions.append(TP / (TP + FP))
         
