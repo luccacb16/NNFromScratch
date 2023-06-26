@@ -134,7 +134,7 @@ class NN:
         '''
         
         if len(predictions) != len(Y):
-            raise ValueError('predictions and Y must have the same length')
+            raise ValueError('predictions e Y devem possuir o mesmo tamanho')
         
         return np.sum(predictions == Y) / len(Y)
     
@@ -144,7 +144,7 @@ class NN:
         '''
         
         if len(predictions) != len(Y):
-            raise ValueError('predictions and Y must have the same length')
+            raise ValueError('predictions e Y devem possuir o mesmo tamanho')
         
         classes = len(np.unique(Y))
         precisions = []
@@ -156,4 +156,20 @@ class NN:
             precisions.append(TP / (TP + FP))
         
         return np.mean(precisions)
+    
+    def confusion_matrix(self, predictions: list, Y: np.ndarray) -> np.ndarray:
+        '''
+        Retorna a matriz de confusão do modelo
+        '''
         
+        if len(predictions) != len(Y):
+            raise ValueError('predictions e Y devem possuir o mesmo tamanho')
+        
+        classes = len(np.unique(Y))
+        cm = np.zeros((classes, classes))
+        
+        for i in range(classes):
+            for j in range(classes):
+                cm[i, j] = np.sum((predictions == np.full_like(predictions, i)) & (Y == j))
+        
+        return cm.astype(int)
