@@ -113,14 +113,19 @@ class NN:
         Retorna uma lista com as predições para cada exemplo de X
         '''
         
-        n = X.shape[0]
-        
         predictions = []
         
-        for i in range(n):
-            _, _, _, sO = self.forwardprop(X[i])
+        if X.ndim == 1:  # Verifica se é um único exemplo
+            _, _, _, sO = self.forwardprop(X)
             predictions.append(np.argmax(sO))
+        
+        else:  # Mais de um exemplo
+            n = X.shape[0]
             
+            for i in range(n):
+                _, _, _, sO = self.forwardprop(X[i])
+                predictions.append(np.argmax(sO))
+        
         return predictions
     
     def accuracy(self, predictions: list, Y: np.ndarray) -> float:
@@ -137,6 +142,7 @@ class NN:
         '''
         Retorna a precisão do modelo (número de verdadeiros positivos / número de positivos)
         '''
+        
         if len(predictions) != len(Y):
             raise ValueError('predictions and Y must have the same length')
         
