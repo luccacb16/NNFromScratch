@@ -5,10 +5,10 @@ def minmax(X):
   return (X - np.max(X, axis=0)) / (np.max(X, axis=0) - np.min(X, axis=0) + 1e-7)
 
 def zscore(X):
-  return (X - np.mean(X)) / np.std(X)
+  return (X - np.mean(X, axis=0)) / np.std(X, axis=0)
 
 def l1(X):
-  return X / np.abs(X).sum()
+  return X / np.linalg.norm(X, ord=1, axis=0)
 
 def mnist(X):
   return X / 255.
